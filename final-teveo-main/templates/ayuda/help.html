@@ -1,0 +1,78 @@
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+    <title>
+        TeVeO
+    </title>
+    <link rel="stylesheet" href="{% static 'TeVeO/main.css' %}">
+    <link rel="stylesheet" href="dynamic.css" type="text/css">
+    <link rel="shorcut icon" type="image/x-icon" href="{% static 'pictures_16455.ico' %}">
+</head>
+<body>
+    <div id="header">
+        <div id="title">
+            <h1><a href="/">TeVeO </a></h1>
+        </div>
+        <div id="comentador">
+            Comentador: {{ comentador }}
+        </div>
+        <ul id="nav">
+            <li><a href="/">Principal</a></li>
+            <li><a href="/camaras">Camaras</a></li>
+            <li><a href="/configuracion">Configuracion</a></li>
+            <li><a href="/help">Ayuda</a></li>
+            <li><a href="admin/">Admin</a></li>
+        </ul>
+    </div>
+    <div id="main-content">
+      <h2>Páginas principales:</h2>
+        <br>
+    <h3>Página principal -- "/"</h3>
+    <p>
+        En la página principal se ofrecerá un listado de los comentarios puestos, organizados de más nuevos a más viejos, y opcionalmente paginado. Para cada comentario se mostrará el identificador de la cámara a la que se refiere (que será un enlace a la página de la cámara), la fecha del comentario, el texto del comentario, y la imagen de la cámara en el momento en que se puso el mensaje.
+    </p>
+  
+    <h3>Página de cámaras -- "/camaras"</h3>
+    <p>
+        En esta página se verá:
+    </p>
+    <ul>
+        <li>Un listado de las fuentes de datos disponibles, con un botón junto a cada una de ellas. Si se pulsa el botón se descargará esa fuente de datos, y se almacenará la información correspondiente en la base de datos (solo las cámaras que tenga un identificador diferente a los ya almacenados para esa fuente de datos).</li>
+        <li>Un listado de todas las cámaras, opcionalmente paginado. En la parte superior aparecerá la imagen de una cámara aleatoria. Debajo, para cada cámara, se verá su identificador, junto a dos enlaces: uno a la página de la cámara, otro a la página dinámica de la cámara. Además, aparecerá el nombre de la cámara, y el número de comentarios que tiene. Las cámaras aparecerán ordenadas por número de comentarios (de más a menos comentarios).</li>
+    </ul>
+  
+    <h3>Página de cada cámara "/id:camara"</h3>
+    <p>
+        El nombre de recurso de la página de cada cámara será el identificador único de la cámara, con el carácter “/” por delante. En la página de cada cámara se mostrarán:
+    </p>
+    <ul>
+        <li>Enlace a la página dinámica de la cámara.</li>
+        <li>Información de la cámara: nombre y localización (longitud, latitud). Imagen actual de la cámara.</li>
+        <li>Enlace para pasar a la página que permite escribir un comentario para la cámara.</li>
+        <li>Un listado de todos los comentarios puestos para esa cámara desde cualquier navegador (primero los más recientes).</li>
+    </ul>
+  
+    <h3>Página para poner un comentario "/comentario"</h3>
+    <p>
+        El nombre de recurso de esta página será /comentario. Esta página aceptará un parámetro, en formato query string, que indicará el identificador de la cámara a la que se está poniendo el mensaje. Cuando se cargue la página, se verá la información de la cámara, la imagen de la cámara que se reciba en ese momento, la fecha y hora, y un formulario para poner el texto del comentario.
+    </p>
+  
+    <h3>Página dinámica de cada cámara "dyn" </h3>
+    <p>
+        El nombre de recurso de la página dinámica de cada cámara será el mismo que el de la página de la cámara, con el sufijo -dyn. En la página dinámica de cada cámara habrá un enlace a la página de la cámara, y el mismo contenido que en la página de la cámara, pero usando HTMX para:
+    </p>
+    <ul>
+        <li>Solicitar periódicamente (cada 30 segundos) la imagen, que de esta forma se irá actualizando.</li>
+        <li>Actualizar los comentarios para la cámara cada 30 segundos.</li>
+        <li>Cargar, al pulsar el enlace correspondiente, el formulario que permita poner un comentario (incluyendo la imagen actual y la fecha del comentario). Cuando se rellene ese formulario, se pondrá el comentario correspondiente, que se verá en cuanto se actualicen los comentarios.</li>
+    </ul>
+    </div>
+    <div id="footer" class="list-footer-display__clear">
+        Comentarios: {{ num_list_comentarios }} -- Camaras: {{ num_list_camaras }}
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>

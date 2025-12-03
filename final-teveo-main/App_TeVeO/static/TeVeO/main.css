@@ -1,0 +1,69 @@
+#title {
+    color: white;
+    text-align: center;
+    font-family: Charter;
+}
+
+#header {
+    background-image:url("https://i0.wp.com/miguelrivasespana.es/wp-content/uploads/2021/09/camara-vigilancia-del-trafico.jpg?fit=700%2C450&ssl=1") ;
+    color: white;
+}
+
+#comentador {
+    margin-left: 30px;
+}
+
+#main-content {
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 20px;
+}
+#nav {
+    list-style-type: none;
+    display: flex;
+    font-family: Charter;
+    font-size: 30px;
+}
+
+#nav li {
+    margin-right: 20px;
+}
+
+#nav li:last-child {
+    margin-right: 0;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+}
+
+#footer {
+    background-color: cornflowerblue;
+    color: #fff;
+    font-family: Charter;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 80px;
+}
+
+img{
+    display: block;
+    width: 50%;
+    height: auto;
+    margin: auto;
+}
+.img2{
+    width: 15%;
+    margin: 0;
+}
+
+

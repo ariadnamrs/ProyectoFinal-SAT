@@ -1,0 +1,7 @@
+{
+  "imagen": "{{ imagen }}",
+  "lugar": "{{ lugar }}",
+  "localizacion": "{{ localizacion }}",
+  "id": "{{ id }}",
+  "comentarios": "{{coment}}"
+}

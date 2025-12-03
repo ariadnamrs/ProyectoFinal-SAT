@@ -1,0 +1,77 @@
+{%  load static %}
+<html lang="">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+    <title>
+        TeVeO
+    </title>
+    <link rel="stylesheet" href="{% static 'TeVeO/main.css' %}">
+    <link rel="stylesheet" href="dynamic.css" type="text/css">
+    <link rel="shorcut icon" type="image/x-icon" href="{% static 'pictures_16455.ico' %}">
+</head>
+<body>
+
+    <div id="header">
+        <div id="title">
+            <h1><a href="/">TeVeO </a></h1>
+        </div>
+        <div id="comentador">
+            Comentador: {{ comentador }}
+        </div>
+        <ul id="nav">
+            <li><a href="/">Principal</a></li>
+            <li><a href="/camaras">Camaras</a></li>
+            <li><a href="/configuracion">Configuracion</a></li>
+            <li><a href="/help">Ayuda</a></li>
+            <li><a href="admin/">Admin</a></li>
+        </ul>
+    </div>
+    <div id="main-content">
+    {% if list_camaras|length == 0%}
+    <h2> Lista de fuente de datos:</h2>
+            {% for list in datos %}
+                <form action='/camaras' method='post'>
+                {% csrf_token %}
+                    <input type='hidden' name='valor' value='{{ list }}'>
+                    <div><a href="{{ list }}">{{ list }}</a><input type="submit" value="Descargar"></div>
+                </form>
+            {% endfor %}
+    {% elif list_camaras|length > 0 %}
+        <img src="{{ imagen_cam }}" alt="">
+        <h2> Lista de camaras: </h2>
+            {% for camara in list_camaras %}
+                <li>{{ camara.lugar }}</li>
+                <div>Id de la camara: {{ camara.id }}</div>
+                <a href="{{ camara.id }}">Accede a la camara</a>
+
+                <div><a href="{{ camara.id }}dyn">Pagina dinamica de la camara</a></div>
+                <div><label>Comentario:{{ camara.num_comentarios }}</label></div>
+                <div><label>Likes: {{ camara.likes }}</label></div>
+                <form action="/camaras" method="POST">
+                {% csrf_token %}
+                    <input type='hidden' name='id' value='{{ camara.id }}'>
+                    <input type="submit" value="Me gusta">
+                </form>
+            {% endfor %}
+        <h4> ¿Quieres ver la camara del año 2023 con más me gustas? Accede:</h4>
+        <img src="{% static 'qr.png' %}" class ="img2" alt="">
+        <br>
+        <h2> Lista de fuente de datos:</h2>
+            {% for list in datos %}
+                <form action='/camaras' method='post'>
+                {% csrf_token %}
+                    <input type='hidden' name='valor' value='{{ list }}'>
+                    <div><a href="{{ list }}">{{ list }}</a><input type="submit" value="Descargar"></div>
+                </form>
+            {% endfor %}
+    {% endif %}
+    </div>
+    <div id="footer" class="list-footer-display__clear">
+        Comentarios: {{ num_list_comentarios }} -- Camaras: {{ num_list_camaras }}
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>

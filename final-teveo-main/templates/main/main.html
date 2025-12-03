@@ -1,0 +1,50 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+    <title>TeVeO</title>
+    <link rel="stylesheet" href="{% static 'TeVeO/main.css' %}">
+    <link rel="stylesheet" href="dynamic.css" type="text/css">
+    <link rel="shorcut icon" type="image/x-icon" href="{% static 'pictures_16455.ico' %}">
+</head>
+<body>
+
+    <div id="header">
+        <div id="title">
+            <h1><a href="/">TeVeO </a></h1>
+        </div>
+        <div id="comentador">
+            Comentador: {{ comentador }}
+        </div>
+        <ul id="nav">
+            <li><a href="/">Principal</a></li>
+            <li><a href="/camaras">Camaras</a></li>
+            <li><a href="/configuracion">Configuracion</a></li>
+            <li><a href="/help">Ayuda</a></li>
+            <li><a href="admin/">Admin</a></li>
+        </ul>
+    </div>
+    <div id="main-content">
+    {% if list_comentarios|length == 0 %}
+        <h4>Aun no se han puesto comentarios. <a href="/camaras">Accede!</a></h4>
+    {% elif list_comentarios|length > 0 %}
+        <h2>Lista de comentarios: </h2>
+        {% for coment in list_comentarios %}
+            <li> Comentario: {{ coment.body }} -- Fecha: {{ coment.date }} <a href="/{{ coment.content.id }}">{{ coment.content.id }}</a> </li>
+            <br>
+            <img src="{{ coment.content.src }}" alt="">
+            <br>
+        {% endfor %}
+    {% endif %}
+    </div>
+    <div id="footer" class="list-footer-display__clear">
+        Comentarios: {{ num_list_comentarios }} -- Camaras: {{ num_list_camaras }}
+    </div>
+         
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>
